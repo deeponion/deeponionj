@@ -20,6 +20,8 @@ package org.bitcoinj.core;
 import com.google.common.annotations.*;
 import com.google.common.base.*;
 import com.google.common.collect.*;
+
+import org.bitcoinj.crypto.X13;
 import org.bitcoinj.script.*;
 import org.slf4j.*;
 
@@ -260,7 +262,7 @@ public class Block extends Message {
         time = readUint32();
         difficultyTarget = readUint32();
         nonce = readUint32();
-        hash = Sha256Hash.wrapReversed(Sha256Hash.hashTwice(payload, offset, cursor - offset));
+        hash = Sha256Hash.wrapReversed(X13.x13Digest(payload, offset, cursor - offset));
         headerBytesValid = serializer.isParseRetainMode();
 
         // transactions
@@ -403,7 +405,7 @@ public class Block extends Message {
         try {
             ByteArrayOutputStream bos = new UnsafeByteArrayOutputStream(HEADER_SIZE);
             writeHeader(bos);
-            return Sha256Hash.wrapReversed(Sha256Hash.hashTwice(bos.toByteArray()));
+            return Sha256Hash.wrapReversed(X13.x13Digest(bos.toByteArray()));
         } catch (IOException e) {
             throw new RuntimeException(e); // Cannot happen.
         }
