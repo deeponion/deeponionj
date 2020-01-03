@@ -1444,6 +1444,7 @@ public class Transaction extends ChildMessage {
     protected void bitcoinSerializeToStream(OutputStream stream, boolean useSegwit) throws IOException {
         // version
         uint32ToByteStreamLE(version, stream);
+        uint32ToByteStreamLE(time, stream);
         // marker, flag
         if (useSegwit) {
             stream.write(0);

@@ -26,7 +26,7 @@ public class X13 {
 
         try {
             log.info("Loading x13 native library...");
-            System.loadLibrary("x13-lib");
+            System.loadLibrary("x13");
             native_library_loaded = true;
             log.info("Loaded x13 successfully.");
         }
@@ -114,11 +114,11 @@ public class X13 {
         hash[10] = new Sha512Hash(echo.digest(hash[9].getBytes()));
 
         Hamsi512 hamsi = new Hamsi512();
-        hash[10] = new Sha512Hash(hamsi.digest(hash[9].getBytes()));
+        hash[11] = new Sha512Hash(hamsi.digest(hash[10].getBytes()));
 
         Fugue512 fugue = new Fugue512();
-        hash[10] = new Sha512Hash(fugue.digest(hash[9].getBytes()));
+        hash[12] = new Sha512Hash(fugue.digest(hash[11].getBytes()));
 
-        return hash[10].trim256().getBytes();
+        return hash[12].trim256().getBytes();
     }
 }
