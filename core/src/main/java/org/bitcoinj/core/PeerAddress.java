@@ -140,7 +140,7 @@ public class PeerAddress extends ChildMessage {
     }
 
     private boolean isSerializeTime() {
-        return protocolVersion >= 31402 && !(parent instanceof VersionMessage);
+        return true; //protocolVersion >= 31402 && !(parent instanceof VersionMessage);
     }
 
     @Override

@@ -144,6 +144,10 @@ public class BitcoinSerializer extends MessageSerializer {
         // sometimes it sends us stuff that isn't part of any message.
         seekPastMagicBytes(in);
         BitcoinPacketHeader header = new BitcoinPacketHeader(in);
+        // FIXME: Ignoring unsupported messages
+        if(header.command.contains("mixservice") || header.command.contains("feefilter")) {
+            return null;
+        }
         // Now try to read the whole message.
         return deserializePayload(header, in);
     }
