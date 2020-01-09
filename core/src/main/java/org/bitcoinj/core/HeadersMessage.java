@@ -79,7 +79,7 @@ public class HeadersMessage extends Message {
             if (newBlockHeader.hasTransactions()) {
                 throw new ProtocolException("Block header does not end with a null byte");
             }
-            cursor += newBlockHeader.optimalEncodingMessageSize;
+            cursor += newBlockHeader.optimalEncodingMessageSize + 1;
             blockHeaders.add(newBlockHeader);
         }
 
