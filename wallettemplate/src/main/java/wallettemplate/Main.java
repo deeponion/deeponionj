@@ -47,7 +47,7 @@ import java.net.URL;
 import static wallettemplate.utils.GuiUtils.*;
 
 public class Main extends Application {
-    public static NetworkParameters params = TestNet3Params.get();
+    public static NetworkParameters params = MainNetParams.get(); //TestNet3Params.get();
     public static final Script.ScriptType PREFERRED_OUTPUT_SCRIPT_TYPE = Script.ScriptType.P2WPKH;
     public static final String APP_NAME = "WalletTemplate";
     private static final String WALLET_FILE_NAME = APP_NAME.replaceAll("[^a-zA-Z0-9.-]", "_") + "-"
@@ -144,9 +144,9 @@ public class Main extends Application {
         };
         // Now configure and start the appkit. This will take a second or two - we could show a temporary splash screen
         // or progress widget to keep the user engaged whilst we initialise, but we don't.
-        if (params == RegTestParams.get()) {
-            bitcoin.connectToLocalHost();   // You should run a regtest mode bitcoind locally.
-        }
+//        if (params == RegTestParams.get()) {
+//            bitcoin.connectToLocalHost();   // You should run a regtest mode bitcoind locally.
+//        }
         bitcoin.setDownloadListener(controller.progressBarUpdater())
                .setBlockingStartup(false)
                .setUserAgent(APP_NAME, "1.0");
