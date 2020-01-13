@@ -542,19 +542,23 @@ public class Block extends Message {
         //
         // To prevent this attack from being possible, elsewhere we check that the difficultyTarget
         // field is of the right value. This requires us to have the preceding blocks.
-// FIXME: DeepOnion
-//        BigInteger target = getDifficultyTargetAsInteger();
-//
-//        BigInteger h = getHash().toBigInteger();
-//        if (h.compareTo(target) > 0) {
-//            // Proof of work check failed!
-//            if (throwException)
-//                throw new VerificationException("Hash is higher than target: " + getHashAsString() + " vs "
-//                        + target.toString(16));
-//            else
-//                return false;
-//        }
+        if(isPoW()) {
+            BigInteger target = getDifficultyTargetAsInteger();
+            BigInteger h = getHash().toBigInteger();
+            if (h.compareTo(target) > 0) {
+                // Proof of work check failed!
+                if (throwException)
+                    throw new VerificationException("Hash is higher than target: " + getHashAsString() + " vs "
+                            + target.toString(16));
+                else
+                    return false;
+            }
+        }
         return true;
+    }
+
+    private boolean isPoW() {
+        return getHashAsString().startsWith("000000");
     }
 
     private void checkTimestamp() throws VerificationException {
