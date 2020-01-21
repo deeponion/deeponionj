@@ -141,10 +141,11 @@ public class BuildCheckpoints {
         System.out.println("Checkpointing up to " + Utils.dateTimeFormat(timeAgo * 1000));
 
         chain.addNewBestBlockListener(Threading.SAME_THREAD, new NewBestBlockListener() {
+            private long checkpointInterval = 1825 * 14; // Two weeks worth of DeepOnion blocks.
             @Override
             public void notifyNewBestBlock(StoredBlock block) throws VerificationException {
                 int height = block.getHeight();
-                if (height % params.getInterval() == 0 && block.getHeader().getTimeSeconds() <= timeAgo) {
+                if (height % checkpointInterval == 0 && block.getHeader().getTimeSeconds() <= timeAgo) {
                     System.out.println(String.format("Checkpointing block %s at height %d, time %s",
                             block.getHeader().getHash(), block.getHeight(), Utils.dateTimeFormat(block.getHeader().getTime())));
                     checkpoints.put(height, block);
@@ -222,15 +223,15 @@ public class BuildCheckpoints {
         checkState(manager.numCheckpoints() == expectedSize);
 
         if (params.getId().equals(NetworkParameters.ID_MAINNET)) {
-            StoredBlock test = manager.getCheckpointBefore(1390500000); // Thu Jan 23 19:00:00 CET 2014
-            checkState(test.getHeight() == 280224);
+            StoredBlock test = manager.getCheckpointBefore(1527638400); // 05/30/2018 @ 12:00am (UTC)
+            checkState(test.getHeight() == 562100);
             checkState(test.getHeader().getHashAsString()
-                    .equals("00000000000000000b5d59a15f831e1c45cb688a4db6b0a60054d49a9997fa34"));
+                    .equals("be2328a8822e50c803cf16f95bc19a925368aad1715b0258abbd870e2408f7e0"));
         } else if (params.getId().equals(NetworkParameters.ID_TESTNET)) {
-            StoredBlock test = manager.getCheckpointBefore(1390500000); // Thu Jan 23 19:00:00 CET 2014
-            checkState(test.getHeight() == 167328);
+            StoredBlock test = manager.getCheckpointBefore(1548806400); // 01/30/2019 @ 12:00am (UTC)
+            checkState(test.getHeight() == 1022000);
             checkState(test.getHeader().getHashAsString()
-                    .equals("0000000000035ae7d5025c2538067fe7adb1cf5d5d9c31b024137d9090ed13a9"));
+                    .equals("00000000000428d9c671ab76c91c9982e55348680275ba1272344bf5f245e81f"));
         }
     }
 
