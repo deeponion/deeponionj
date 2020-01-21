@@ -43,7 +43,7 @@
                 <HBox alignment="CENTER_RIGHT" layoutX="272.0" layoutY="360.0" prefHeight="26.0" prefWidth="561.0" spacing="20.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="17.0">
                     <children>
                         <Button fx:id="passwordButton" mnemonicParsing="false" onAction="#passwordButtonClicked" text="Set password" />
-                        <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#restoreClicked" text="Restore from words" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#restoreClicked" text="Restore from words"/>
                         <Button defaultButton="true" layoutX="523.0" layoutY="360.0" maxWidth="80.0" mnemonicParsing="false" onAction="#closeClicked" text="Close" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>

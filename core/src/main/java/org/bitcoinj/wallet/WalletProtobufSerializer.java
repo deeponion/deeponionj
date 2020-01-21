@@ -265,6 +265,10 @@ public class WalletProtobufSerializer {
             txBuilder.setLockTime((int)tx.getLockTime());
         }
 
+        if(tx.getTime() > 0) {
+            txBuilder.setTime((int)tx.getTime());
+        }
+
         // Handle inputs.
         for (TransactionInput input : tx.getInputs()) {
             Protos.TransactionInput.Builder inputBuilder = Protos.TransactionInput.newBuilder()
@@ -628,6 +632,10 @@ public class WalletProtobufSerializer {
 
         if (txProto.hasUpdatedAt()) {
             tx.setUpdateTime(new Date(txProto.getUpdatedAt()));
+        }
+
+        if(txProto.hasTime()) {
+            tx.setTime(txProto.getTime());
         }
 
         for (Protos.TransactionOutput outputProto : txProto.getTransactionOutputList()) {
