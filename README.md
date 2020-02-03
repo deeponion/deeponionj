@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/deeponion/deeponionj.png?branch=master)](https://travis-ci.org/deeponion/deeponionj)   [![Coverage Status](https://coveralls.io/repos/deeponion/deeponionj/badge.png?branch=master)](https://coveralls.io/r/deeponion/deeponionj?branch=master) 
+[![Build Status](https://travis-ci.com/deeponion/deeponionj.svg?branch=master)](https://travis-ci.com/deeponion/deeponionj)   [![Coverage Status](https://coveralls.io/repos/deeponion/deeponionj/badge.png?branch=master)](https://coveralls.io/r/deeponion/deeponionj?branch=master) 
 
 ### Welcome to bitcoinj
 
