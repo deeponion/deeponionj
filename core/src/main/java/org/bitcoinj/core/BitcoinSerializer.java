@@ -312,6 +312,7 @@ public class BitcoinSerializer extends MessageSerializer {
     @Override
     public Transaction makeTransaction(byte[] payloadBytes, int offset, int length, byte[] hashFromHeader)
             throws ProtocolException {
+        log.error("makeTransaction message: {}", HEX.encode(payloadBytes));
         return new Transaction(params, payloadBytes, offset, null, this, length, hashFromHeader);
     }
 

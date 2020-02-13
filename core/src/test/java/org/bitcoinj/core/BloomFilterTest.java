@@ -20,6 +20,7 @@ package org.bitcoinj.core;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.wallet.KeyChainGroup;
 import org.bitcoinj.wallet.Wallet;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -68,6 +69,7 @@ public class BloomFilterTest {
         assertEquals("03ce4299050000000100008002", HEX.encode(filter.unsafeBitcoinSerialize()));
     }
 
+    @Ignore("Non DeepOnion params FIXME")
     @Test
     public void walletTest() throws Exception {
         Context.propagate(new Context(MAINNET));

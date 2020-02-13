@@ -18,28 +18,30 @@
 package org.bitcoinj.net.discovery;
 
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.params.MainNetParams;
 import org.junit.Test;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class SeedPeersTest {
     private static final NetworkParameters MAINNET = MainNetParams.get();
 
-    @Test
+    @Test(expected = PeerDiscoveryException.class)
     public void getPeer_one() throws Exception{
         SeedPeers seedPeers = new SeedPeers(MAINNET);
+        // DeepOnion doesn't have SeedPeers just DNS
         assertThat(seedPeers.getPeer(), notNullValue());
     }
-    
-    @Test
+
+    @Test(expected = PeerDiscoveryException.class)
     public void getPeer_all() throws Exception{
         SeedPeers seedPeers = new SeedPeers(MAINNET);
+        // DeepOnion doesn't have SeedPeers just DNS
         for (int i = 0; i < MAINNET.getAddrSeeds().length; ++i) {
             assertThat("Failed on index: "+i, seedPeers.getPeer(), notNullValue());
         }

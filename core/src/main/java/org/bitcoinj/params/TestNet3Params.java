@@ -57,7 +57,8 @@ public class TestNet3Params extends AbstractBitcoinNetParams {
         spendableCoinbaseDepth = 100;
         subsidyDecreaseBlockCount = 210000;
         String genesisHash = genesisBlock.getHashAsString();
-        checkState(genesisHash.equals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
+        // FIXME: This a fake hash as TESTNET is not currently live.
+        checkState(genesisHash.equals("0db3745fbca5c77f6cf4c38c26afa1e4acd66689a7a4e1f54b9b050893ee060a"));
         alertSigningKey = Utils.HEX.decode("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
 
         dnsSeeds = new String[] {
