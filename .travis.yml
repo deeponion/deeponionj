@@ -14,8 +14,8 @@ install: true
 before_script:
   - gradle wrapper --gradle-version=$GRADLE_VERSION
 script:
-  - ./gradlew clean assemble
-#  - ./gradlew clean build - TODO - enable when tests are fixed.
+#  - ./gradlew clean assemble THIS LINE DOESN"T RUN TESTS
+  - ./gradlew clean build
 
 notifications:
   irc:
