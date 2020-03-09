@@ -937,7 +937,7 @@ public class PeerGroup implements TransactionBroadcaster {
                 log.warn(e.getMessage());
                 continue;
             }
-            for (InetSocketAddress address : addresses) addressList.add(new PeerAddress(params, address));
+            for (InetSocketAddress address : addresses) addressList.add(new PeerAddress(address));
             if (addressList.size() >= maxPeersToDiscoverCount) break;
         }
         if (!addressList.isEmpty()) {

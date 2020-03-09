@@ -111,6 +111,25 @@ public class PeerAddress extends ChildMessage {
         this.services = BigInteger.ZERO;
     }
 
+    /**
+     * Constructs a peer address from an {@link InetSocketAddress}. An InetSocketAddress can take in as parameters an
+     * InetAddress or a String hostname. If you want to connect to a .onion, set the hostname to the .onion address.
+     * Protocol version is the default for Bitcoin.
+     */
+    public PeerAddress(InetSocketAddress addr) {
+        checkNotNull(addr);
+        InetAddress inetAddress = addr.getAddress();
+        if(inetAddress != null) {
+            this.addr = inetAddress;
+        } else {
+            this.hostname = checkNotNull(addr.getHostString());
+        }
+        this.port = addr.getPort();
+        this.protocolVersion = NetworkParameters.ProtocolVersion.CURRENT.getBitcoinProtocolVersion();
+        this.services = BigInteger.ZERO;
+        length = protocolVersion > 31402 ? MESSAGE_SIZE : MESSAGE_SIZE - 4;
+    }
+
     public static PeerAddress localhost(NetworkParameters params) {
         return new PeerAddress(params, InetAddress.getLoopbackAddress(), params.getPort());
     }
@@ -203,8 +222,14 @@ public class PeerAddress extends ChildMessage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PeerAddress other = (PeerAddress) o;
-        return other.addr.equals(addr) && other.port == port && other.time == time && other.services.equals(services);
+
+        PeerAddress that = (PeerAddress) o;
+
+        if (port != that.port) return false;
+        if (time != that.time) return false;
+        if (addr != null ? !addr.equals(that.addr) : that.addr != null) return false;
+        if (hostname != null ? !hostname.equals(that.hostname) : that.hostname != null) return false;
+        return !(services != null ? !services.equals(that.services) : that.services != null);
     }
 
     @Override
