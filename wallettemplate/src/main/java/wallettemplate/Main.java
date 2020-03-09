@@ -17,7 +17,6 @@
 package wallettemplate;
 
 import com.google.common.util.concurrent.*;
-import com.runjva.sourceforge.jsocks.protocol.Socks5Proxy;
 import javafx.scene.input.*;
 import org.bitcoinj.kits.SocksWalletAppKit;
 import org.bitcoinj.net.discovery.SocksMultiDiscovery;
@@ -47,7 +46,6 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.net.UnknownHostException;
 
 import static wallettemplate.utils.GuiUtils.*;
 
