@@ -145,7 +145,7 @@ public class PeerAddress extends ChildMessage {
         }
         Utils.uint64ToByteStreamLE(services, stream);  // nServices.
         // Java does not provide any utility to map an IPv4 address into IPv6 space, so we have to do it by hand.
-        byte[] ipBytes = addr.getAddress();
+        byte[] ipBytes = addr == null ? new byte[] {127,0,0,1} : addr.getAddress();
         if (ipBytes.length == 4) {
             byte[] v6addr = new byte[16];
             System.arraycopy(ipBytes, 0, v6addr, 12, 4);
