@@ -17,7 +17,10 @@
 package wallettemplate;
 
 import com.google.common.util.concurrent.*;
+import com.runjva.sourceforge.jsocks.protocol.Socks5Proxy;
 import javafx.scene.input.*;
+import org.bitcoinj.kits.SocksWalletAppKit;
+import org.bitcoinj.net.discovery.SocksMultiDiscovery;
 import org.bitcoinj.utils.AppDataDirectory;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Utils;
@@ -35,6 +38,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.deeponion.net.SocksSocketFactory;
 import wallettemplate.controls.NotificationBarPane;
 import wallettemplate.utils.GuiUtils;
 import wallettemplate.utils.TextFieldValidator;
@@ -43,6 +47,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import static wallettemplate.utils.GuiUtils.*;
 
@@ -133,23 +138,26 @@ public class Main extends Application {
         scene.getAccelerators().put(KeyCombination.valueOf("Shortcut+F"), () -> bitcoin.peerGroup().getDownloadPeer().close());
     }
 
-    public void setupWalletKit(@Nullable DeterministicSeed seed) {
+    public void setupWalletKit(@Nullable DeterministicSeed seed){
         // If seed is non-null it means we are restoring from backup.
         File appDataDirectory = AppDataDirectory.get(APP_NAME).toFile();
-        bitcoin = new WalletAppKit(params, PREFERRED_OUTPUT_SCRIPT_TYPE, null, appDataDirectory, WALLET_FILE_NAME) {
+        final SocksSocketFactory socksSocketFactory = new SocksSocketFactory("127.0.0.1", 9081);
+        bitcoin = new SocksWalletAppKit(params, PREFERRED_OUTPUT_SCRIPT_TYPE, null, appDataDirectory, WALLET_FILE_NAME, socksSocketFactory) {
             @Override
             protected void onSetupCompleted() {
                 Platform.runLater(controller::onBitcoinSetup);
             }
         };
+
         // Now configure and start the appkit. This will take a second or two - we could show a temporary splash screen
         // or progress widget to keep the user engaged whilst we initialise, but we don't.
 //        if (params == RegTestParams.get()) {
 //            bitcoin.connectToLocalHost();   // You should run a regtest mode bitcoind locally.
 //        }
         bitcoin.setDownloadListener(controller.progressBarUpdater())
-               .setBlockingStartup(false)
-               .setUserAgent(APP_NAME, "1.0");
+                .setBlockingStartup(false)
+                .setDiscovery(new SocksMultiDiscovery(params))
+                .setUserAgent(APP_NAME, "1.0");
         if (seed != null)
             bitcoin.restoreWalletFromSeed(seed);
     }

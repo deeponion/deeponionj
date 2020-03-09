@@ -92,11 +92,14 @@ public class MainNetParams extends AbstractBitcoinNetParams {
         checkpoints.put(1118505, Sha256Hash.wrap("000000000003c8328fbeafeb99a58030ab31d6ba52e17e111abd615d8cd8c6b9"));
 
         dnsSeeds = new String[] {
-                "176.223.129.95:17571",
-                "89.40.7.83:17571",
-                "103.102.44.103:17571",
-                "139.180.197.94:17571",
-                "45.76.160.162:17571"
+                "lm55cypb2n2yvlbq.onion",
+                "chi6rlwedk3xmtua.onion",
+                "4hcgtqhqvozduscx.onion",
+                "cv3pjwxjembvpkuo.onion",
+                "wtipdviwjapfq7sj.onion",
+                "wtipdviwjapfq7sj.onion",
+                "3qndwf44nshlaxmz.onion",
+                "klqpylql4so2ieot.onion"
         };
         httpSeeds = new HttpDiscovery.Details[] {};
 
