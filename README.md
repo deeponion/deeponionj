@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/deeponion/deeponionj.svg?branch=master)](https://travis-ci.com/deeponion/deeponionj)   [![Coverage Status](https://coveralls.io/repos/deeponion/deeponionj/badge.png?branch=master)](https://coveralls.io/r/deeponion/deeponionj?branch=master) 
 
-### Welcome to bitcoinj
+### Welcome to DeepOnionj
 
-The bitcoinj library is a Java implementation of the Bitcoin protocol, which allows it to maintain a wallet and send/receive transactions without needing a local copy of Bitcoin Core. It comes with full documentation and some example apps showing how to use it.
+The DeepOnionj library is a is a Java implementation of the DeepOnion protocol, which allows it to maintain a wallet and send/receive transactions without needing a local copy of DeepOnion Core. It comes with full documentation and some example apps showing how to use it. It is a fork of the bitcoinj library. 
 
 ### Technologies
 
@@ -50,5 +50,5 @@ Building apps with official releases of **bitcoinj** is covered in the [tutorial
 If you want to develop or test your app with a [Jitpack](https://jitpack.io)-powered build of the latest `master` or `release-0.15` branch of **bitcoinj** follow the dynamically-generated instructions for that branch by following the correct link.
 
 
-* [master](https://jitpack.io/#bitcoinj/bitcoinj/master-SNAPSHOT) branch
-* [release-0.15](https://jitpack.io/#bitcoinj/bitcoinj/release-0.15-SNAPSHOT) branch
+* [master](https://jitpack.io/#deeponion/deeponionj/master-SNAPSHOT) branch
+* [release-2.1.1](https://jitpack.io/#deeponion/deeponionj/2.1.1) branch
