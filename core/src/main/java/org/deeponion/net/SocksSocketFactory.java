@@ -135,10 +135,6 @@ public class SocksSocketFactory extends SocketFactory {
         byte b1 = inputStream.readByte();
         byte b2 = inputStream.readByte();
         if(b2 == 0x00) {
-            byte b3 = inputStream.readByte();
-            byte b4 = inputStream.readByte();
-            int i1 = inputStream.readInt();
-            short s1 = inputStream.readShort();
             log.info("SOCKS5 Proxy to " + host + " connected.");
             return socket;
         } else {

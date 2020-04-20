@@ -506,7 +506,9 @@ public class PeerGroup implements TransactionBroadcaster {
                     executor.schedule(this, delay, TimeUnit.MILLISECONDS);
                     return;
                 }
-                connectTo(addrToTry, false, vConnectTimeoutMillis);
+                if(shouldAttemptConnect(addrToTry)) {
+                    connectTo(addrToTry, false, vConnectTimeoutMillis);
+                }
             } finally {
                 lock.unlock();
             }
@@ -515,6 +517,28 @@ public class PeerGroup implements TransactionBroadcaster {
             }
         }
     };
+
+    /**
+     * Check if we are already connected to the peer.
+     * @param addrToTry peer to connect to
+     *
+     * @return return false if already connected or pending.
+     */
+    private boolean shouldAttemptConnect(PeerAddress addrToTry) {
+        for(Peer p : peers) {
+            if(p.peerAddress.getHostname().equals(addrToTry.getHostname())) {
+                log.info("Already connected to {} ", addrToTry.getHostname());
+                return false;
+            }
+        }
+        for(Peer p : pendingPeers) {
+            if(p.peerAddress.getHostname().equals(addrToTry.getHostname())) {
+                log.info("Already connecting to {} ", addrToTry.getHostname());
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void triggerConnections() {
         // Run on a background thread due to the need to potentially retry and back off in the background.
