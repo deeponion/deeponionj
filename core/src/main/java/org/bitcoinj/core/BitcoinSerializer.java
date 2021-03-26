@@ -145,7 +145,7 @@ public class BitcoinSerializer extends MessageSerializer {
         seekPastMagicBytes(in);
         BitcoinPacketHeader header = new BitcoinPacketHeader(in);
         // FIXME: Ignoring unsupported messages
-        if(header.command.contains("mixservice") || header.command.contains("feefilter")) {
+        if(header.command.contains("mixservice") || header.command.contains("feefilter") || header.command.contains("dsserviceann")) {
             return null;
         }
         // Now try to read the whole message.
